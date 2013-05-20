@@ -1,0 +1,48 @@
+/*
+ * game.cpp
+ *
+ *  Created on: Jan 24, 2013
+ *      Author: njenson2
+ */
+
+
+#include "level.h"
+
+void next_level(vector <Rectangle>& blocks, vector <Enemy>& enemies){
+	cwin << Message(Point(-5,0), "You beat the level! Click to continue...");
+	cwin.get_mouse("");
+	cwin.clear();
+	blocks.clear();
+	enemies.clear();
+}
+
+int ccc_win_main(){
+	// LEVEL ONE
+	vector <Rectangle> blocks;
+	blocks.push_back(Rectangle(Point(-10,0),20,1,"blue"));
+	blocks.push_back(Rectangle(Point(-7,-6.8),3,3));
+	blocks.push_back(Rectangle(Point(8,8),2,1));
+	vector <Enemy> enemies;
+	enemies.push_back(Enemy(Point(0,5), 100));
+	Player player(Point(-8,-8));
+	Point finish(9,8.5,"green");
+	Level level_one(blocks, enemies, player, finish);
+	level_one.start();
+
+	next_level(blocks, enemies);
+
+	//LEVEL TWO
+	blocks.push_back(Rectangle(Point(-.5,-7),1,17,"blue"));
+	blocks.push_back(Rectangle(Point(-9,-2.5),5,5, "blue"));
+	blocks.push_back(Rectangle(Point(4,-2.5),5,5, "blue"));
+	blocks.push_back(Rectangle(Point(-1,7),3,2, "blue"));
+	enemies.push_back(Enemy(Point(-1,5), 100));
+	player.setLocation(Point(0,-6.5));
+	finish = Point(0,8,"green");
+	Level level_two(blocks, enemies, player, finish);
+	level_two.start();
+
+	cwin << Message(Point(-5,0), "ALL LEVELS COMPLETE!", "green");
+	cwin.get_mouse("");
+	exit(0);
+}

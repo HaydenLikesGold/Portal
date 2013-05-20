@@ -1,0 +1,51 @@
+/*
+ * constants.h
+ *
+ *  Created on: Jan 28, 2013
+ *      Author: njenson2
+ */
+
+#ifndef CONSTANTS_H_
+#define CONSTANTS_H_
+
+
+//GUI Constants
+const Point PORTAL_BUTTON_LOCATION=Point(8.25,-8.5);
+const double BUTTON_RADIUS=1.25;
+
+const Point RESET_BOTTOM_LEFT = Point(3.5,-9.0);
+const double RESET_WIDTH = 2.0;
+const double RESET_HEIGHT = 1.0;
+const double TEXT_HEIGHT = 0.35;
+const double TEXT_OFFSET = 0.2;
+
+const Line MENU_LINE = Line(Point(-10,-7),Point(10,-7));
+const Line MESSAGE_LINE = Line(Point(-10, 9.3), Point(10, 9.3));
+const Line LEFT_BARRIER = Line(Point(-9.8, -7 ), Point(-9.8, 9.3));
+const Line RIGHT_BARRIER= Line(Point(9.8,-7), Point(9.8, 9.3));
+
+//Where is this nate?
+const string LEFT = "left";
+const string RIGHT = "right";
+
+//Object Constants
+const double COLLISION_CLOSENESS = 0.4;
+
+//Player Constants
+const double MOVEMENT_STEP = 0.5;
+
+//Enemy Constants
+const int ENEMY_STEP=.9;
+const double ENEMY_NEARNESS_MOVEMENT_NECCESARY=6;
+const double ATTACK_NEARNESS=.5;
+const double DEATH_RADIUS=ATTACK_NEARNESS*2;
+
+//Portal Constants
+const double PORTAL_LENGTH=1.0;
+const double CLICK_DISTANCE_LIMIT=5;
+
+
+
+
+
+#endif /* CONSTANTS_H_ */

@@ -1,0 +1,78 @@
+______          _        _   _____                 _           _   
+| ___ \        | |      | | /  __ \               | |         | |  
+| |_/ /__  _ __| |_ __ _| | | /  \/ ___  _ __ ___ | |__   __ _| |_ 
+|  __/ _ \| '__| __/ _` | | | |    / _ \| '_ ` _ \| '_ \ / _` | __|
+| | | (_) | |  | || (_| | | | \__/\ (_) | | | | | | |_) | (_| | |_ 
+\_|  \___/|_|   \__\__,_|_|  \____/\___/|_| |_| |_|_.__/ \__,_|\__|
+                                                                                                                                                      
+                         Read Me 
+
+Author: Hayden Goldstien & Nate Jenson
+
+Rules:
+		Welcome to Portal-Combat! You are a purple dot that must 
+	traverse multiple levels while avoiding enemies and using your 
+	handy dandy portal gun. 
+		Although your character on his own can't move through walls, 
+	you can use your portal gun to place portals to get to the other 
+	side of a wall. Simply click the portal button and you will be 
+	promoted with a message telling you to place the first portal via a 
+	click and then a second one, however the second click must be close
+	to the original one. Once set, you can use the portal to transport. 
+		You aren't the only one of the map though, red enemies are placed
+	around the map that randomly patrol. However, once they get within a 
+	certain distance of you, they will hunt you down and if they get too 
+	close you will have to retry the level. Best defense against the reds
+	is the laser, it shoots in four directions (up, down, left, right), but 
+	will destroy enemies that get to close. Fire it by clicking the laser
+	button next to the portal button.
+		If you get stuck you can simply hit the retry button. Good luck and be 
+	careful, you only have a limited amount of lasers and portals per level. Let
+	the combat, of the portal variety, begin! 
+	
+Bugs:
+	Enemies can jump through walls if they approach the wall at a corner.
+
+Large-Scale Information:
+	-Both information for the laser and portal are stored within the level class. 
+	-Both the Player and Enemy classes derive from the Object class.
+	
+
+Classes & Purpose:
+	Constants:
+		This class stores constants that are used across the program for various
+	different purposes, such as GUI, Portal & Laser traits, as well player and 
+	enemy constants such as speed.
+	
+	Enemy:
+		Enemy is a dirivitive class of Object and controls the enemy units (red guys)
+	on the screen. It is in charge of their movement, drawing, and what occurs if the 
+	player sucssefully shoots them with a laser.
+	
+	Game:
+		Game stores game data, such as the level layout, and also calls level to actually
+	start the game. Its purpose is to store level layout and call level to start game. 
+	
+	Level:
+		Like a reverse-mullet, the player gets party in the front, but in the back it's 
+	all business, this is the business end of portal combat. This draws everything that
+	is shown on the window at a given time, and is also in charge of getting mouse feedback
+	as well as operations relating to the portal and laser. 
+	
+	Object:
+		Object is the base case for both player and enemy, and controls collision detection
+	as well setters and getters for objects. 
+	
+	Player:
+		Player is a dirivitive class of Object and controls the players character (purple dot)
+	on the screen. It controls movement, collision detection, as well as the teleportation that
+	occurs after use of a portal. 
+	
+	Rectangle:
+		Rectangle is used to create the blocks that the player is bound by on the screen. It 
+	creates rectangles that can then be checked for collision detection.
+	
+Auxiliary Files: 
+	cccfiles: Taken from "C++ For Everyone" by Cay S. Horstmann
+		The files within cccfiles were used to print the window as well as many of the drawing
+	functions such as Points and Lines. The files were not changed by us for the project.  

@@ -1,0 +1,115 @@
+/*
+ * level.cpp
+ *
+ *  Created on: Jan 24, 2013
+ *      Author: njenson2
+ */
+
+#include "level.h"
+#include "constants.h"
+
+bool is_portal_clicked=false;
+
+
+Level::Level(){
+
+}
+
+Level::Level(vector <Rectangle> blocks, vector <Enemy> enemies, Player player, Point finish){
+	this->blocks = blocks;
+	this->enemies = enemies;
+	this->player = player;
+	this->finish = finish;
+}
+
+void Level::portal_button(){
+	Circle button = Circle (PORTAL_BUTTON_LOCATION, BUTTON_RADIUS);
+	Message label = Message(Point(PORTAL_BUTTON_LOCATION.get_x() - BUTTON_RADIUS + TEXT_OFFSET, PORTAL_BUTTON_LOCATION.get_y() + TEXT_HEIGHT), "Portal");
+	cwin<<button<<label;
+}
+
+void Level::portal_click(Point click){
+	double click_x=click.get_x()-PORTAL_BUTTON_LOCATION.get_x();
+	double click_y=click.get_y()-PORTAL_BUTTON_LOCATION.get_y();
+	double length_of_hyp=sqrt((pow(click_x,2))+(pow(click_y,2)));
+	if ((length_of_hyp>BUTTON_RADIUS)){
+		is_portal_clicked=false;
+	}
+	else {is_portal_clicked=true;}
+}
+
+void Level::portal_gun(){
+	Point portalA_point=cwin.get_mouse("Click to place the first portal");
+	cwin<<portalA_point;
+	this->portalA = Line(portalA_point, Point(portalA_point.get_x(),portalA_point.get_y()+PORTAL_LENGTH), "blue");
+	double distance;
+	double acc=1;
+	Point portalB_point;
+	do{
+		if (acc==1){portalB_point=cwin.get_mouse("Click to place the second portal");}
+		else {portalB_point=cwin.get_mouse("Click too far away, try again");}
+		distance = sqrt(pow((portalA_point.get_x()-portalB_point.get_x()),2)+pow((portalA_point.get_y()-portalB_point.get_y()),2));
+		this->portalB = Line(portalB_point, Point(portalB_point.get_x(),portalB_point.get_y()+PORTAL_LENGTH), "orange");
+		acc++;
+	}while (distance>CLICK_DISTANCE_LIMIT);
+	is_portal_clicked=false;
+}
+
+vector <Line> Level::get_portals(){
+	vector <Line> portals;
+	portals.push_back(this->portalA);
+	portals.push_back(this->portalB);
+	return portals;
+
+}
+
+void Level::draw_portals(){
+	cwin<<this->portalA<<this->portalB;
+
+}
+
+void Level::draw_finish(){
+	cwin << this->finish;
+}
+void Level::draw_all(){
+	//draw blocks
+	for(unsigned i = 0; i < blocks.size(); i++){
+		blocks[i].draw();
+	}
+	//draw ememies
+	for(unsigned i = 0; i < enemies.size(); i++){
+		enemies[i].draw();
+	}
+	//draw player
+	this->player.draw();
+
+	//portal_button
+	portal_button();
+
+	//draw_portals
+	draw_portals();
+
+	draw_finish();
+
+	cwin << Line(Point(-10,-7), Point(10, -7)); // button-zone divider
+	cwin << Line(Point(-10, 9.3), Point(10, 9.3)); // Message-zone divider
+}
+
+bool Level::player_won(){
+	if(abs(player.getLocation().get_x() - this->finish.get_x()) <= COLLISION_CLOSENESS
+		&& abs(player.getLocation().get_y() - this->finish.get_y()) <= COLLISION_CLOSENESS){return true;}
+	return false;
+}
+
+void Level::start(){
+	draw_all();
+	while(!player_won()){
+		Point click=cwin.get_mouse("Click what direction you want to move.");
+		portal_click(click);
+		if (is_portal_clicked==true){portal_gun();}
+		else{player.move(click, blocks, get_portals());}
+		cwin.clear();
+		draw_all();
+	}
+
+}
